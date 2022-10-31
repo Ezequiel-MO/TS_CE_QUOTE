@@ -1,11 +1,23 @@
-import express from 'express'
+import express, { Express } from 'express'
+import { CUTTeventsSERVER } from '../server'
+import { dbConnect } from '../mongo'
+import { config } from '../config'
+import { router } from './routes'
 
-const app = express()
+class Application {
+  public initialize(): void {
+    this.loadConfig()
+    dbConnect()
+    const app: Express = express()
+    app.use(router)
+    const server: CUTTeventsSERVER = new CUTTeventsSERVER(app)
+    server.start()
+  }
+  private loadConfig(): void {
+    config.validateConfig()
+  }
+}
 
-app.get('/', (_req, res) => {
-  res.send('Hello World!')
-})
+const application: Application = new Application()
 
-app.listen(8080, () => {
-  console.log('Server started on port 8080')
-})
+application.initialize()
