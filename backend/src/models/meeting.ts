@@ -1,5 +1,5 @@
-/* import { Schema, model } from 'mongoose'
-import { IMeeting } from '../interfaces/meeting'
+import { Schema, model } from 'mongoose'
+import { IMeeting } from '../interfaces/meeting.interface'
 
 const meetingSchema = new Schema<IMeeting>(
   {
@@ -43,4 +43,3 @@ meetingSchema.methods.setImgUrl = function (files: any[]) {
 const Meeting = model('Meetings', meetingSchema)
 
 export { Meeting, meetingSchema }
- */
