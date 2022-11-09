@@ -5,8 +5,9 @@ import {
   getItems,
   postItem,
   updateItem
-} from '../controllers/event'
+} from '../controllers/hotel'
 import uploadS3 from '../middleware/s3Storage'
+
 import { checkAuth } from '../middleware/session'
 
 const router = Router()
