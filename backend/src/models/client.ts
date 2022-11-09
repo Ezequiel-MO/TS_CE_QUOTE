@@ -36,6 +36,6 @@ const clientSchema = new Schema<IClient>(
   }
 )
 
-const Client = model('Clients', clientSchema)
+const Client = model<IClient>('Clients', clientSchema)
 
 export default Client

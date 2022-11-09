@@ -32,6 +32,6 @@ accManagerSchema.methods.setImgUrl = function (files: any[]) {
   this.imageContentUrl = arrImgUrl
 }
 
-const AccManager = model('AccManagers', accManagerSchema)
+const AccManager = model<IAccManager>('AccManagers', accManagerSchema)
 
 export default AccManager

@@ -59,6 +59,6 @@ restaurantSchema.methods.setImgUrl = function (files: any[]) {
   this.imageContentUrl = arrImgUrl
 }
 
-const Restaurant = model('Restaurants', restaurantSchema)
+const Restaurant = model<IRestaurant>('Restaurants', restaurantSchema)
 
 export { Restaurant, restaurantSchema }

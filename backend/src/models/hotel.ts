@@ -62,6 +62,6 @@ hotelSchema.methods.setImgUrl = function (files: any[]) {
 
 /* hotelSchema.index({ city: 1, numberStars: -1 }); */
 
-const Hotel = model('Hotels', hotelSchema)
+const Hotel = model<IHotel>('Hotels', hotelSchema)
 
 export { Hotel, hotelSchema }

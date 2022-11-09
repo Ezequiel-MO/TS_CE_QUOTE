@@ -23,6 +23,6 @@ const countrySchema = new Schema<ICountry>(
   }
 )
 
-const Country = model('Countries', countrySchema)
+const Country = model<ICountry>('Countries', countrySchema)
 
 export default Country

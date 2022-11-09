@@ -48,6 +48,6 @@ eventSchema.methods.setImgUrl = function (files: any[]) {
   this.imageContentUrl = arrImgUrl
 }
 
-const Event = model('Events', eventSchema)
+const Event = model<IEvent>('Events', eventSchema)
 
 export { Event, eventSchema }

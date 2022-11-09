@@ -33,6 +33,6 @@ transferSchema.methods.setImgUrl = function (files: any[]) {
   this.imageContentUrl = arrImgUrl
 }
 
-const Transfer = model('Transfers', transferSchema)
+const Transfer = model<ITransfer>('Transfers', transferSchema)
 
 export { Transfer, transferSchema }

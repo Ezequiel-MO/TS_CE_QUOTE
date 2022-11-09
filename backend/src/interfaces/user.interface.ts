@@ -1,6 +1,6 @@
 import { Auth } from './auth.interface'
 
-export interface User extends Auth {
+export interface IUser extends Auth {
   name: string
   description: string
 }
