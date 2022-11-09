@@ -1,9 +1,5 @@
-type TLocation = {
-  type: object
-  coordinates: number[]
-  address?: string
-  description?: string
-}
+import { ILocation } from './location.interface'
+import { ITransfer } from './transfer.interface'
 
 type TVENUE_PRICE = {
   rental: number
@@ -21,13 +17,13 @@ type TVENUE_PRICE = {
 
 export interface IRestaurant {
   name: string
-  city?: string
-  textContent?: string[]
+  city: string
+  textContent: string[]
   imageContentUrl: string[]
-  price?: number
-  location?: TLocation
-  introduction?: string[]
+  price: number
+  location: ILocation
+  introduction: string[]
   isVenue: boolean
-  venue_price?: TVENUE_PRICE[]
-  transfer?: object[]
+  venue_price: TVENUE_PRICE[]
+  transfer: ITransfer[]
 }

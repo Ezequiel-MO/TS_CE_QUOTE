@@ -19,6 +19,7 @@ class Config {
   public AWS_REGION: string | undefined
   public SECRET_KEY_ONE: string | undefined
   public SECRET_KEY_TWO: string | undefined
+  public REDIS_HOST: string | undefined
 
   private readonly DEFAULT_DATABASE_URL: string =
     'mongodb+srv://XaviLaia:BrI6SYHBmQyixtKc@cluster0.rljgj.mongodb.net/projects?retryWrites=true&w=majority'
@@ -31,13 +32,14 @@ class Config {
     this.JWT_SECRET = process.env.JWT_SECRET
     this.JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN
     this.JWT_COOKIE_EXPIRES_IN = process.env.JWT_COOKIE_EXPIRES_IN
-    this.FRONTEND_URL = process.env.FRONTEND_URL
+    this.FRONTEND_URL = process.env.FRONTEND_URL || ''
     this.S3_BUCKET_NAME = process.env.S3_BUCKET_NAME
     this.AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID
     this.AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY
     this.AWS_REGION = process.env.AWS_REGION
     this.SECRET_KEY_ONE = process.env.SECRET_KEY_ONE
     this.SECRET_KEY_TWO = process.env.SECRET_KEY_TWO
+    this.REDIS_HOST = process.env.REDIS_HOST || ''
   }
 
   public validateConfig(): void {

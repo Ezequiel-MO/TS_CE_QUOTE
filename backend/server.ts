@@ -14,6 +14,9 @@ import cookieSession from 'cookie-session'
 import compression from 'compression'
 import { config } from './config'
 import HTTP_STATUS from 'http-status-codes'
+import { Server } from 'socket.io'
+import { createClient } from 'redis'
+import { createAdapter } from 'socket.io-redis'
 import { CustomError, IErrorResponse } from './src/utils/error.handler'
 
 export class CUTTeventsSERVER {
@@ -84,7 +87,21 @@ export class CUTTeventsSERVER {
     }
   }
 
-  private createSocketIO(httpServer: http.Server): void {}
+  private async createSocketIO(httpServer: http.Server): Promise<Server> {
+    const io = new Server(httpServer, {
+      cors: {
+        origin: config.FRONTEND_URL,
+        methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
+      }
+    })
+    const pubClient = createClient({
+      url: config.REDIS_HOST
+    })
+    const subClient = pubClient.duplicate()
+    await Promise.all([pubClient.connect(), subClient.connect()])
+    io.adapter(createAdapter({ pubClient, subClient }))
+    return io
+  }
   private startHttpServer(httpServer: http.Server): void {
     httpServer.listen(config.PORT, () => {
       console.log(`Server is running on port ${config.PORT}`)
