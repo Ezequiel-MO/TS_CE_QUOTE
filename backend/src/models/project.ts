@@ -1,8 +1,12 @@
 import { Schema, model } from 'mongoose'
+import { IProject } from '../interfaces/project.interface'
+import { eventSchema } from './event'
+import { hotelSchema } from './hotel'
+import { meetingSchema } from './meeting'
 import { restaurantSchema } from './restaurant'
 import { transferSchema } from './transfer'
 
-const projectSchema = new Schema(
+const projectSchema = new Schema<IProject>(
   {
     code: {
       type: String,
@@ -26,21 +30,22 @@ const projectSchema = new Schema(
     },
     clientAccManager: [{ type: Schema.Types.ObjectId, ref: 'Clients' }],
     projectIntro: [String],
-    /* hotels: [hotelSchema], */
+    hotels: [hotelSchema],
     status: {
       type: String,
       default: 'Received',
       enum: ['Received', 'Sent', 'Confirmed', 'Cancelled', 'Invoiced']
     },
     estimate: Number,
+    corporateImage: [{ type: Schema.Types.ObjectId, ref: 'CompanyFeatures' }],
     schedule: [
       {
         date: String,
-        /* fullDayMeetings: [meetingSchema],
-        morningMeetings: [meetingSchema], */
-        /*  morningEvents: [eventSchema], */
-        /*  afternoonMeetings: [meetingSchema], */
-        /*   afternoonEvents: [eventSchema], */
+        fullDayMeetings: [meetingSchema],
+        morningMeetings: [meetingSchema],
+        morningEvents: [eventSchema],
+        afternoonMeetings: [meetingSchema],
+        afternoonEvents: [eventSchema],
         lunch: [restaurantSchema],
         dinner: [restaurantSchema],
         transfer_in: [transferSchema],
@@ -54,6 +59,30 @@ const projectSchema = new Schema(
   }
 )
 
-const Project = model('Projects', projectSchema)
+projectSchema.pre(/^find/, async function (next) {
+  this.populate({
+    path: 'clientAccManager',
+    select: '-createdAt -updatedAt'
+  })
+  next()
+})
+
+projectSchema.pre(/^find/, async function (next) {
+  this.populate({
+    path: 'accountManager',
+    select: '-createdAt -updatedAt'
+  })
+  next()
+})
+
+projectSchema.pre(/^find/, async function (next) {
+  this.populate({
+    path: 'corporateImage',
+    select: '-createdAt -updatedAt'
+  })
+  next()
+})
+
+const Project = model<IProject>('Projects', projectSchema)
 
 export default Project
