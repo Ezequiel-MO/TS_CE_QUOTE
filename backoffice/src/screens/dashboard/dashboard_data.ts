@@ -1,12 +1,17 @@
 export const dbMaster = [
-  { title: 'Hotels', route: 'hotel' },
-  { title: 'Restaurants', route: 'restaurant' },
-  { title: 'Events', route: 'event' },
-  { title: 'Transfers', route: 'transfer' },
-  { title: 'Clients', route: 'client' },
-  { title: 'Locations', route: 'location' },
-  { title: 'Account Managers', route: 'accManager' },
-  { title: 'Countries', route: 'country' }
+  { title: 'Hotels', route: 'hotel', icon: 'bxs:hotel' },
+  { title: 'Restaurants', route: 'restaurant', icon: 'bx:restaurant' },
+  { title: 'Events', route: 'event', icon: 'ic:baseline-event-available' },
+  { title: 'Transfers', route: 'transfer', icon: 'cil:bus-alt' },
+  { title: 'Clients', route: 'client', icon: 'mdi:handshake-outline' },
+  { title: 'Locations', route: 'location', icon: 'akar-icons:location' },
+  { title: 'Account Managers', route: 'accManager', icon: 'akar-icons:person' },
+  { title: 'Countries', route: 'country', icon: 'gis:search-country' },
+  {
+    title: 'Invoices',
+    route: 'invoice',
+    icon: 'ant-design:euro-circle-outlined'
+  }
 ]
 
 export const projectMaster = [{ title: 'Projects', route: 'project' }]

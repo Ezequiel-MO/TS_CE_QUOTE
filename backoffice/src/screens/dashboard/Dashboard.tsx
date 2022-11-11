@@ -3,14 +3,12 @@ import Solutions from './Solutions'
 
 const Dashboard = () => {
   return (
-    <div className='flex flex-row'>
+    <div className='flex flex-col'>
       Initial Backoffice Dashboard
-      {/*   <aside className='w-64'>
+      <div className='flex flex-row p-5'>
         <Sidebar />
-      </aside>
-      <div className='flex-grow'>
         <Solutions />
-      </div> */}
+      </div>
     </div>
   )
 }

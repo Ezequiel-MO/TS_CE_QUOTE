@@ -8,7 +8,7 @@ type ServiceCardProps = {
 
 const ServiceCard = (props: ServiceCardProps) => {
   return (
-    <div className='flex flex-col items-start bg-gray-600 px-5 lg:w-64 p-5 cursor-pointer '>
+    <div className='flex flex-col items-start bg-gray-600 p-5 lg:w-64 cursor-pointer m-1 h-[180px]'>
       <div className='flex items-center'>
         <Icon icon={props.icon} width='30' />
         <div className='text-lg ml-2'>{props.title}</div>

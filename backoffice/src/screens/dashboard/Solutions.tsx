@@ -3,7 +3,7 @@ import ServiceCard from './ServiceCard'
 
 const Solutions = () => {
   return (
-    <div className='flex items-start'>
+    <div className='flex flex-wrap'>
       {services.map((item) => {
         return (
           <div key={item.title}>
