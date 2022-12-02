@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon src/app.ts",
+    "dev": "nodemon -r tsconfig-paths/register src/app.ts",
     "build": "tsc",
     "start": "node ./dist/app.js"
   },
@@ -16,6 +16,7 @@
     "@socket.io/redis-adapter": "^7.2.0",
     "aws-sdk": "^2.895.0",
     "bcryptjs": "^2.4.3",
+    "bunyan": "^1.8.15",
     "compression": "^1.7.4",
     "cookie-session": "^2.0.0",
     "cors": "^2.8.5",
@@ -36,6 +37,7 @@
   "devDependencies": {
     "@aws-sdk/types": "^3.186.0",
     "@types/bcryptjs": "^2.4.2",
+    "@types/bunyan": "^1.8.8",
     "@types/compression": "^1.7.2",
     "@types/cookie-session": "^2.0.44",
     "@types/cors": "^2.8.12",
@@ -44,6 +46,7 @@
     "@types/jsonwebtoken": "^8.5.9",
     "@types/multer": "^1.4.7",
     "@types/multer-s3": "^3.0.0",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.1.1"
   }
 }

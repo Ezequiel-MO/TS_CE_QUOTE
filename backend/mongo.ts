@@ -1,7 +1,9 @@
 import { connect } from 'mongoose'
 import mongoose from 'mongoose'
+import Logger from 'bunyan'
 import { config } from './config'
 
+const log: Logger = config.createLogger('database')
 const DB_URI = <string>(
   config.DATABASE?.replace('<PASSWORD>', <string>config.DATABASE_PASSWORD)
 )
@@ -9,11 +11,11 @@ const DB_URI = <string>(
 export const dbConnect = async (): Promise<void> => {
   try {
     const connection = await connect(DB_URI)
-    console.log(
+    log.info(
       `MongoDB connected: ${connection.connection.host} ${connection.connection.port}`
     )
   } catch (err: any) {
-    console.error(`DB connection error: ${err.message}`)
+    log.error(`DB connection error: ${err.message}`)
     process.exit(1)
   }
   await connect(DB_URI)

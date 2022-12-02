@@ -12,12 +12,13 @@ import helmet from 'helmet'
 import hpp from 'hpp'
 import cookieSession from 'cookie-session'
 import compression from 'compression'
+import Logger from 'bunyan'
 import { config } from './config'
 import HTTP_STATUS from 'http-status-codes'
-import { Server } from 'socket.io'
-import { createClient } from 'redis'
-import { createAdapter } from 'socket.io-redis'
 import { CustomError, IErrorResponse } from './src/utils/error.handler'
+import { applicationRoutes } from './src/routes'
+
+const log: Logger = config.createLogger('server')
 
 export class CUTTeventsSERVER {
   private app: Application
@@ -57,13 +58,17 @@ export class CUTTeventsSERVER {
     app.use(json({ limit: '50mb' }))
     app.use(urlencoded({ extended: true, limit: '50mb' }))
   }
-  private routesMiddleware(app: Application): void {}
+  private routesMiddleware(app: Application): void {
+    applicationRoutes(app)
+  }
   private globalErrorHandler(app: Application): void {
+    //For handling urls that actually don't exist
     app.all('*', (req: Request, res: Response) => {
       res.status(HTTP_STATUS.NOT_FOUND).json({
         message: `Can't find ${req.originalUrl} on this server!`
       })
     })
+    //For handling custom errors
     app.use(
       (
         err: IErrorResponse,
@@ -71,6 +76,7 @@ export class CUTTeventsSERVER {
         res: Response,
         next: NextFunction
       ) => {
+        log.error(err)
         if (err instanceof CustomError) {
           return res.status(err.statusCode).json(err.serializeErrors())
         }
@@ -83,28 +89,13 @@ export class CUTTeventsSERVER {
       const httpServer: http.Server = new http.Server(app)
       this.startHttpServer(httpServer)
     } catch (error) {
-      console.log(error)
+      log.error(error)
     }
   }
 
-  private async createSocketIO(httpServer: http.Server): Promise<Server> {
-    const io = new Server(httpServer, {
-      cors: {
-        origin: config.FRONTEND_URL,
-        methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
-      }
-    })
-    const pubClient = createClient({
-      url: config.REDIS_HOST
-    })
-    const subClient = pubClient.duplicate()
-    await Promise.all([pubClient.connect(), subClient.connect()])
-    io.adapter(createAdapter({ pubClient, subClient }))
-    return io
-  }
   private startHttpServer(httpServer: http.Server): void {
     httpServer.listen(config.PORT, () => {
-      console.log(`Server is running on port ${config.PORT}`)
+      log.info(`Server is running on port ${config.PORT}`)
     })
   }
 }
