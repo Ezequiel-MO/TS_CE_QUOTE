@@ -1,15 +1,38 @@
 {
   "compilerOptions": {
     "target": "es2016" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
-
     "module": "commonjs" /* Specify what module code is generated. */,
+    "baseUrl": ".",
+    "rootDir": "./src",
 
     "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
     "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
 
     "strict": true /* Enable all strict type-checking options. */,
-
+    "noImplicitAny": true /* Raise error on expressions and declarations with an implied 'any' type. */,
+    "pretty": true /* Stylize errors and messages using color and context. */,
+    "noUnusedLocals": true /* Report errors on unused locals. */,
+    "noUnusedParameters": false /* Report errors on unused parameters. */,
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
-    "outDir": "./dist" /* Redirect output structure to the directory. */
+    "outDir": "./dist" /* Redirect output structure to the directory. */,
+    "plugins": [
+      {
+        "transform": "typescript-transform-paths"
+      },
+      {
+        "transform": "typescript-transform-paths",
+        "afterDeclarations": true
+      }
+    ],
+    "paths": {
+      "@/controllers/*": ["src/controllers/*"],
+      "@/interfaces/*": ["src/interfaces/*"],
+      "@/middlewares/*": ["src/middlewares/*"],
+      "@/models/*": ["src/models/*"],
+      "@/routes/*": ["src/routes/*"],
+      "@/services/*": ["src/services/*"],
+      "@/utils/*": ["src/utils/*"],
+      "@/root/*": ["src/*"]
+    }
   }
 }

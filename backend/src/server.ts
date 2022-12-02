@@ -1,11 +1,4 @@
-import {
-  Application,
-  json,
-  Request,
-  Response,
-  urlencoded,
-  NextFunction
-} from 'express'
+import { Application, json, Request, Response, urlencoded, NextFunction } from 'express'
 import http from 'http'
 import cors from 'cors'
 import helmet from 'helmet'
@@ -13,10 +6,10 @@ import hpp from 'hpp'
 import cookieSession from 'cookie-session'
 import compression from 'compression'
 import Logger from 'bunyan'
-import { config } from './config'
 import HTTP_STATUS from 'http-status-codes'
-import { CustomError, IErrorResponse } from './src/utils/error.handler'
-import { applicationRoutes } from './src/routes'
+import { config } from '../config'
+import { CustomError, IErrorResponse } from '@/utils/error.handler'
+import { applicationRoutes } from './routes'
 
 const log: Logger = config.createLogger('server')
 
@@ -69,20 +62,13 @@ export class CUTTeventsSERVER {
       })
     })
     //For handling custom errors
-    app.use(
-      (
-        err: IErrorResponse,
-        _req: Request,
-        res: Response,
-        next: NextFunction
-      ) => {
-        log.error(err)
-        if (err instanceof CustomError) {
-          return res.status(err.statusCode).json(err.serializeErrors())
-        }
-        next()
+    app.use((err: IErrorResponse, _req: Request, res: Response, next: NextFunction) => {
+      log.error(err)
+      if (err instanceof CustomError) {
+        return res.status(err.statusCode).json(err.serializeErrors())
       }
-    )
+      next()
+    })
   }
   private async startServer(app: Application): Promise<void> {
     try {

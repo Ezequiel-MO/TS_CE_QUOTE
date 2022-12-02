@@ -1,5 +1,5 @@
 import express, { Express } from 'express'
-import { CUTTeventsSERVER } from '../server'
+import { CUTTeventsSERVER } from './server'
 import { dbConnect } from '../mongo'
 import { config } from '../config'
 import { router } from './routes'
