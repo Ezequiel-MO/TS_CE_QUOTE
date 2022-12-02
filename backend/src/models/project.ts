@@ -13,10 +13,7 @@ const projectSchema = new Schema<IProject>(
       required: [true, 'Projects must include a code'],
       unique: true,
       trim: true,
-      maxlength: [
-        15,
-        'A Project Name must have less or equal than 15 characters'
-      ],
+      maxlength: [15, 'A Project Name must have less or equal than 15 characters'],
       minlength: [10, 'A Project Name must have at least 10 characters']
     },
     accountManager: [{ type: Schema.Types.ObjectId, ref: 'AccManagers' }],

@@ -16,7 +16,7 @@ export interface IHotel {
   numberStars: number
   numberRooms: number
   checkin_out: string
-  meetingRooms: String
+  meetingRooms: string
   wheelChairAccessible: boolean
   wifiSpeed: string
   swimmingPool: string

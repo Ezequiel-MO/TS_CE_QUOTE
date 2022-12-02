@@ -23,9 +23,6 @@ companyFeatureSchema.methods.setImgUrl = function (files: any[]) {
   this.imageContentUrl = arrImgUrl
 }
 
-const CompanyFeature = model<ICompanyFeatures>(
-  'CompanyFeatures',
-  companyFeatureSchema
-)
+const CompanyFeature = model<ICompanyFeatures>('CompanyFeatures', companyFeatureSchema)
 
 export { CompanyFeature, companyFeatureSchema }
