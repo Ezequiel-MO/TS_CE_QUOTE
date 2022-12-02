@@ -9,8 +9,8 @@
     "lint:fix": "eslint src/**/*.ts --fix",
     "prettier:check": "prettier --check src/**/*.{ts,json}",
     "prettier:fix": "prettier --write src/**/*.{ts,json}",
-    "build": "tsc",
-    "start": "node ./dist/app.js"
+    "build": "ttsc -p .",
+    "start": "node ./dist/src/app.js"
   },
   "keywords": [],
   "author": "Ezequiel Martinez Oliver",
